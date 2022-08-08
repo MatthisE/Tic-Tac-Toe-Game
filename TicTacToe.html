@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ex9 Tic Tac Toe</title>
+<style>
+  td{
+    border: 1px solid black;
+    width:100px;
+    height:100px;
+    z-index:0;
+  }
+  td img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    z-index:10;
+  }
+  tr{ 
+    width: 300px;
+    height: 100px;
+    border: 1px solid black; 
+  }
+  table{
+    width: 300px;
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+
+</style> 
+</head>
+<body style="background-color:smokewhite">
+  <h2>Tic-Tac-Toe</h2>
+  <p id="text"></p>
+  <button id="button">Start</button>
+  <table>
+    <tr>
+      <td id="feld1"></td>
+      <td id="feld2"></td>
+      <td id="feld3"></td>
+    </tr>
+    <tr>
+      <td id="feld4"></td>
+      <td id="feld5"></td>
+      <td id="feld6"></td>
+    </tr>
+    <tr>
+      <td id="feld7"></td>
+      <td id="feld8"></td>
+      <td id="feld9"></td>
+    </tr>
+  </table>
+
+<script>
+  var feld1 = document.getElementById("feld1");
+  var feld2 = document.getElementById("feld2");
+  var feld3 = document.getElementById("feld3");
+  var feld4 = document.getElementById("feld4");
+  var feld5 = document.getElementById("feld5");
+  var feld6 = document.getElementById("feld6");
+  var feld7 = document.getElementById("feld7");
+  var feld8 = document.getElementById("feld8");
+  var feld9 = document.getElementById("feld9");
+  
+  var text = document.getElementById("text"); 
+  var runde = 0;
+  var ende = 0;
+  var button = document.getElementById("button");
+  button.addEventListener("click", startGame);
+  
+  function startGame(){
+    button.innerText = "Neustart";
+    runde=1;
+    ende=0;
+    var feld = document.getElementsByTagName("td");
+    for(var i=0; i < feld.length; i++){
+      feld[i].innerText ="";
+    }
+    text.innerText = "SpielerA ist am Zug.";
+	document.addEventListener("click", zug);
+  }
+  
+  function zug(ev){
+    if(ende==0){
+      if(runde%2==0){
+        if(ev.target.id.indexOf("feld")==0){
+          if(ev.target.innerHTML==""){
+      	    ev.target.innerHTML = '<img src="img/o.png">';
+            text.innerText = "SpielerA ist am Zug.";
+            runde = runde + 1;
+            check();
+          }
+        }
+      }
+      else{
+        if(ev.target.id.indexOf("feld")==0){
+          if(ev.target.innerHTML==""){
+      	    ev.target.innerHTML = '<img src="img/x.png">';
+            text.innerText = "SpielerB ist am Zug.";
+            runde = runde + 1;
+            check();
+          }
+        }
+      }
+    }
+  }
+  
+  function check(){
+    if(feld1.innerHTML=='<img src="img/x.png">'&&feld2.innerHTML=='<img src="img/x.png">'&&feld3.innerHTML=='<img src="img/x.png">'||
+       feld4.innerHTML=='<img src="img/x.png">'&&feld5.innerHTML=='<img src="img/x.png">'&&feld6.innerHTML=='<img src="img/x.png">'||
+       feld7.innerHTML=='<img src="img/x.png">'&&feld8.innerHTML=='<img src="img/x.png">'&&feld9.innerHTML=='<img src="img/x.png">'||
+       feld1.innerHTML=='<img src="img/x.png">'&&feld4.innerHTML=='<img src="img/x.png">'&&feld7.innerHTML=='<img src="img/x.png">'||
+       feld2.innerHTML=='<img src="img/x.png">'&&feld5.innerHTML=='<img src="img/x.png">'&&feld8.innerHTML=='<img src="img/x.png">'||
+       feld3.innerHTML=='<img src="img/x.png">'&&feld6.innerHTML=='<img src="img/x.png">'&&feld9.innerHTML=='<img src="img/x.png">'||
+       feld1.innerHTML=='<img src="img/x.png">'&&feld5.innerHTML=='<img src="img/x.png">'&&feld9.innerHTML=='<img src="img/x.png">'||
+       feld3.innerHTML=='<img src="img/x.png">'&&feld5.innerHTML=='<img src="img/x.png">'&&feld7.innerHTML=='<img src="img/x.png">'){
+      text.innerText = "SpielerA hat gewonnen!";
+      ende=1;
+    }
+    else if(feld1.innerHTML=='<img src="img/o.png">'&&feld2.innerHTML=='<img src="img/o.png">'&&feld3.innerHTML=='<img src="img/o.png">'||
+       feld4.innerHTML=='<img src="img/o.png">'&&feld5.innerHTML=='<img src="img/o.png">'&&feld6.innerHTML=='<img src="img/o.png">'||
+       feld7.innerHTML=='<img src="img/o.png">'&&feld8.innerHTML=='<img src="img/o.png">'&&feld9.innerHTML=='<img src="img/o.png">'||
+       feld1.innerHTML=='<img src="img/o.png">'&&feld4.innerHTML=='<img src="img/o.png">'&&feld7.innerHTML=='<img src="img/o.png">'||
+       feld2.innerHTML=='<img src="img/o.png">'&&feld5.innerHTML=='<img src="img/o.png">'&&feld8.innerHTML=='<img src="img/o.png">'||
+       feld3.innerHTML=='<img src="img/o.png">'&&feld6.innerHTML=='<img src="img/o.png">'&&feld9.innerHTML=='<img src="img/o.png">'||
+       feld1.innerHTML=='<img src="img/o.png">'&&feld5.innerHTML=='<img src="img/o.png">'&&feld9.innerHTML=='<img src="img/o.png">'||
+       feld3.innerHTML=='<img src="img/o.png">'&&feld5.innerHTML=='<img src="img/o.png">'&&feld7.innerHTML=='<img src="img/o.png">'){
+      text.innerText = "SpielerB hat gewonnen!";
+      ende=1;
+    }
+    else if(runde == 10){
+      text.innerText = "Unentschieden!";
+      ende=1;
+    }
+  }
+  
+</script>
+</body>
+</html>
+
